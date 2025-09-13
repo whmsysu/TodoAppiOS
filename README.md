@@ -1,6 +1,6 @@
 # TodoAppiOS 📱
 
-一个功能丰富的iOS待办事项管理应用，采用SwiftUI开发，支持任务创建、编辑、完成状态管理、优先级设置、每日任务、智能筛选等功能。
+一个功能丰富、架构现代化的iOS待办事项管理应用，采用SwiftUI + MVVM架构开发，支持任务创建、编辑、完成状态管理、优先级设置、每日任务、智能筛选等功能。项目采用依赖注入、Repository模式和UseCase模式，具备完整的错误处理机制和统一的应用图标设计。
 
 ## ✨ 功能特性
 
@@ -18,13 +18,19 @@
 - **进度追踪**: 实时显示任务完成进度
 - **空状态处理**: 优雅的空状态页面设计
 - **动画效果**: 流畅的交互动画和状态转换
+- **错误处理**: 统一的错误提示和恢复机制
+- **专业图标**: 统一的iOS和Android应用图标设计
 
 ## 🏗️ 技术架构
 
 ### 架构模式
 - **MVVM (Model-View-ViewModel)**: 清晰的架构分离
+- **依赖注入 (Dependency Injection)**: 松耦合的组件设计
+- **Repository模式**: 数据访问层抽象
+- **UseCase模式**: 业务逻辑封装
 - **SwiftUI**: 声明式UI框架
 - **ObservableObject**: 响应式数据绑定
+- **async/await**: 现代异步编程模式
 
 ### 核心组件
 
@@ -59,15 +65,23 @@ enum TodoFilter: String, CaseIterable {
 }
 ```
 
-#### 🔧 业务逻辑层 (ViewModel)
+#### 🔧 业务逻辑层 (ViewModel & UseCase)
 ```swift
 // TodoManager.swift - 业务逻辑管理器
+@MainActor
 class TodoManager: ObservableObject {
     @Published var todos: [Todo] = []
     @Published var currentFilter: TodoFilter = .pending
     @Published var filteredTodos: [Todo] = []
+    @Published var errorHandler = ErrorHandler()
     
-    // CRUD操作
+    private let todoUseCase: TodoUseCase
+    private let storageService: StorageService
+    
+    // 依赖注入构造函数
+    init(todoUseCase: TodoUseCase?, storageService: StorageService?)
+    
+    // CRUD操作 (async/await)
     func addTodo(_ todo: Todo)
     func deleteTodo(_ todo: Todo)
     func toggleCompletion(for todo: Todo)
@@ -76,39 +90,84 @@ class TodoManager: ObservableObject {
     // 筛选和排序
     func setFilter(_ filter: TodoFilter)
     private func applyFilter()
+}
+
+// TodoUseCase.swift - 业务用例封装
+protocol TodoUseCase {
+    func fetchTodos() async throws -> [Todo]
+    func addTodo(_ todo: Todo) async throws
+    func updateTodo(_ todo: Todo) async throws
+    func deleteTodo(_ todo: Todo) async throws
+    func toggleCompletion(for todo: Todo) async throws
+}
+```
+
+#### 🗄️ 数据访问层 (Repository)
+```swift
+// TodoRepository.swift - 数据访问抽象
+protocol TodoRepository {
+    func fetchTodos() async throws -> [Todo]
+    func saveTodo(_ todo: Todo) async throws
+    func deleteTodo(_ todo: Todo) async throws
+}
+
+// StorageService.swift - 存储服务抽象
+protocol StorageService {
+    func save<T: Codable>(_ object: T, forKey key: String) async throws
+    func load<T: Codable>(_ type: T.Type, forKey key: String) async throws -> T?
+}
+```
+
+#### 🚨 错误处理层
+```swift
+// ErrorHandler.swift - 统一错误处理
+class ErrorHandler: ObservableObject {
+    @Published var showingError = false
+    @Published var errorMessage: String?
+    @Published var recoverySuggestion: String?
     
-    // 数据持久化
-    private func saveTodos()
-    private func loadTodos()
+    func handle(_ error: Error)
+    func clearError()
 }
 ```
 
 #### 🎨 视图层 (View)
-- **ContentView**: 应用入口视图
-- **TodoListView**: 主列表视图
-- **AddTodoView**: 添加/编辑任务视图
-- **TodoRowView**: 任务行视图
+- **ContentView**: 应用入口视图，集成错误处理
+- **TodoListView**: 主列表视图，支持筛选和排序
+- **AddTodoView**: 添加/编辑任务视图，包含时间选择器
+- **TodoRowView**: 任务行视图，显示优先级和状态
 - **FilterChipsView**: 筛选标签视图
 - **ProgressHeaderView**: 进度显示视图
 - **EmptyStateView**: 空状态视图
+- **ErrorAlertView**: 错误提示视图修饰器
 
 ## 📁 项目结构
 
 ```
 TodoAppiOS/
-├── TodoAppiOS/                    # 源代码目录
-│   ├── TodoAppiOSApp.swift       # 应用入口
-│   ├── ContentView.swift         # 根视图
-│   ├── Todo.swift               # 数据模型
-│   ├── TodoManager.swift        # 业务逻辑管理器
-│   ├── TodoListView.swift       # 主列表视图
-│   ├── AddTodoView.swift        # 添加/编辑视图
-│   ├── Assets.xcassets/         # 资源文件
-│   └── TodoAppiOS.entitlements  # 权限配置
-├── TodoAppiOSTests/              # 单元测试
-├── TodoAppiOSUITests/            # UI测试
-├── TodoAppiOS.xcodeproj/         # Xcode项目文件
-└── README.md                     # 项目文档
+├── TodoAppiOS/                           # 源代码目录
+│   ├── TodoAppiOSApp.swift              # 应用入口
+│   ├── ContentView.swift                # 根视图
+│   ├── Todo.swift                       # 数据模型
+│   ├── TodoManager.swift                # 业务逻辑管理器 (已优化)
+│   ├── TodoListView.swift               # 主列表视图
+│   ├── AddTodoView.swift                # 添加/编辑视图
+│   ├── ErrorHandler.swift               # 错误处理
+│   ├── ErrorAlertView.swift             # 错误提示视图
+│   ├── StorageService.swift             # 存储服务抽象
+│   ├── TodoRepository.swift             # 数据访问层
+│   ├── TodoUseCase.swift                # 业务用例层
+│   ├── Assets.xcassets/                 # 资源文件
+│   │   └── AppIcon.appiconset/          # 应用图标 (15个尺寸)
+│   └── TodoAppiOS.entitlements          # 权限配置
+├── TodoAppiOSTests/                      # 单元测试
+├── TodoAppiOSUITests/                    # UI测试
+├── TodoAppiOS.xcodeproj/                 # Xcode项目文件
+├── README.md                             # 项目文档
+├── ARCHITECTURE.md                       # 架构设计文档
+├── ICON_DESIGN.md                        # 图标设计文档
+├── ICON_VERIFICATION_REPORT.md           # 图标验证报告
+└── OPTIMIZATION_SUMMARY.md               # 优化总结文档
 ```
 
 ## 🚀 快速开始
@@ -122,7 +181,7 @@ TodoAppiOS/
 
 1. **克隆项目**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/whmsysu/TodoAppiOS.git
    cd TodoAppiOS
    ```
 
@@ -159,40 +218,39 @@ xcodebuild test -project TodoAppiOS.xcodeproj -scheme TodoAppiOS -destination 'p
 - **创建每日任务**: 开启"每日重复"选项
 - **批量操作**: 使用菜单清除已完成或所有任务
 
-## 🔧 架构分析
+## 🔧 架构特色
 
-### 当前架构优势
-✅ **清晰的MVVM架构**: 职责分离明确  
-✅ **响应式数据绑定**: SwiftUI + ObservableObject  
-✅ **组件化设计**: 可复用的UI组件  
-✅ **数据持久化**: UserDefaults本地存储  
-✅ **智能排序**: 多维度排序算法
+### ✅ 已实现的架构优化
+- **依赖注入**: TodoManager支持构造函数注入，提高可测试性
+- **Repository模式**: 抽象数据访问层，支持多种存储方案
+- **UseCase模式**: 封装业务逻辑，提高代码复用性
+- **错误处理**: 统一的ErrorHandler和ErrorAlertView
+- **异步编程**: 全面采用async/await模式
+- **松耦合设计**: 各层职责明确，便于维护和扩展
 
 ### 📚 详细架构文档
 查看 [ARCHITECTURE.md](ARCHITECTURE.md) 了解完整的架构分析和优化建议，包括：
 
-- **当前架构分析**: MVVM模式的实现细节
-- **优化建议**: 依赖注入、Repository模式、UseCase模式
-- **性能优化**: 大数据量处理、虚拟化列表
-- **数据存储升级**: Core Data、CloudKit集成
+- **架构演进**: 从简单MVVM到现代化架构的完整过程
+- **设计模式**: 依赖注入、Repository、UseCase模式的实现
+- **错误处理**: 统一的错误处理和用户反馈机制
+- **性能优化**: 大数据量处理、虚拟化列表建议
+- **数据存储升级**: Core Data、CloudKit集成方案
 - **实施优先级**: 分阶段的架构演进计划
 
-### 🚀 快速优化建议
-
-#### 立即可实施的优化
-1. **错误处理**: 添加统一的错误处理和用户反馈机制
-2. **依赖注入**: 重构TodoManager支持依赖注入，提高可测试性
-3. **单元测试**: 为核心业务逻辑添加测试覆盖
+### 🚀 未来优化方向
 
 #### 中期优化目标
-1. **Repository模式**: 抽象数据访问层，支持多种存储方案
-2. **UseCase模式**: 封装业务逻辑，提高代码复用性
-3. **性能优化**: 大数据量时的懒加载和虚拟化处理
+1. **单元测试**: 为核心业务逻辑添加完整的测试覆盖
+2. **性能优化**: 大数据量时的懒加载和虚拟化处理
+3. **数据验证**: 添加输入验证和业务规则检查
 
 #### 长期规划
 1. **Core Data**: 升级到Core Data支持复杂查询和关系
 2. **CloudKit**: 添加iCloud同步功能
 3. **主题系统**: 支持深色模式和自定义主题
+4. **国际化**: 多语言支持
+5. **Widget支持**: 添加iOS Widget功能
 
 ## 🛠️ 开发规范
 
@@ -209,11 +267,15 @@ xcodebuild test -project TodoAppiOS.xcodeproj -scheme TodoAppiOS -destination 'p
 
 ## 📊 项目统计
 
-- **代码行数**: ~800+ 行
-- **文件数量**: 8个核心文件
+- **代码行数**: ~1500+ 行
+- **文件数量**: 15个核心文件
+- **架构文件**: 5个架构优化文件
+- **图标文件**: 15个iOS图标 + 10个Android图标
+- **文档文件**: 4个详细文档
 - **支持语言**: 中文界面
 - **最低iOS版本**: iOS 18.5+
 - **目标设备**: iPhone, iPad
+- **GitHub仓库**: [TodoAppiOS](https://github.com/whmsysu/TodoAppiOS)
 
 ## 🤝 贡献指南
 
@@ -227,11 +289,23 @@ xcodebuild test -project TodoAppiOS.xcodeproj -scheme TodoAppiOS -destination 'p
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
 
+## 🎨 图标设计
+
+项目包含统一的iOS和Android应用图标设计：
+
+- **设计理念**: 现代化的任务清单风格，渐变蓝色背景
+- **视觉元素**: 纸张、复选框、添加按钮，直观表达应用功能
+- **技术规格**: 高分辨率PNG格式，支持所有设备尺寸
+- **详细文档**: 查看 [ICON_DESIGN.md](ICON_DESIGN.md) 了解完整设计过程
+
 ## 📞 联系方式
 
 - **开发者**: Haomin Wu
-- **项目链接**: [GitHub Repository](https://github.com/your-username/TodoAppiOS)
+- **项目链接**: [GitHub Repository](https://github.com/whmsysu/TodoAppiOS)
+- **问题反馈**: 请在GitHub Issues中提交问题或建议
 
 ---
 
-**TodoAppiOS** - 让任务管理变得简单高效 🚀
+**TodoAppiOS** - 现代化架构 + 专业设计 = 完美的任务管理体验 🚀
+
+*采用依赖注入、Repository模式、UseCase模式等现代架构设计，具备完整的错误处理机制和统一的图标设计，为iOS开发提供了优秀的架构实践案例。*
