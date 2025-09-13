@@ -149,7 +149,6 @@ struct SimpleTests {
         // Valid time formats
         let validTimes = ["09:30", "23:59", "00:00", "12:00"]
         for time in validTimes {
-            // Create a simple validator that only checks format
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
             let isValidFormat = formatter.date(from: time) != nil
