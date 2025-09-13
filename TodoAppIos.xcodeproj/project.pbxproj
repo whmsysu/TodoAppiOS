@@ -12,37 +12,37 @@
 			containerPortal = 862A102B2E74E7C2003B965B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 862A10322E74E7C2003B965B;
-			remoteInfo = TodoAppIos;
+			remoteInfo = TodoAppiOS;
 		};
 		862A104C2E74E7C3003B965B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 862A102B2E74E7C2003B965B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 862A10322E74E7C2003B965B;
-			remoteInfo = TodoAppIos;
+			remoteInfo = TodoAppiOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		862A10332E74E7C2003B965B /* TodoAppIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoAppIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		862A10412E74E7C3003B965B /* TodoAppIosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppIosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		862A104B2E74E7C3003B965B /* TodoAppIosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppIosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		862A10332E74E7C2003B965B /* TodoAppiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoAppiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		862A10412E74E7C3003B965B /* TodoAppiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		862A104B2E74E7C3003B965B /* TodoAppiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		862A10352E74E7C2003B965B /* TodoAppIos */ = {
+		862A10352E74E7C2003B965B /* TodoAppiOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TodoAppIos;
+			path = TodoAppiOS;
 			sourceTree = "<group>";
 		};
-		862A10442E74E7C3003B965B /* TodoAppIosTests */ = {
+		862A10442E74E7C3003B965B /* TodoAppiOSTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TodoAppIosTests;
+			path = TodoAppiOSTests;
 			sourceTree = "<group>";
 		};
-		862A104E2E74E7C3003B965B /* TodoAppIosUITests */ = {
+		862A104E2E74E7C3003B965B /* TodoAppiOSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TodoAppIosUITests;
+			path = TodoAppiOSUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		862A102A2E74E7C2003B965B = {
 			isa = PBXGroup;
 			children = (
-				862A10352E74E7C2003B965B /* TodoAppIos */,
-				862A10442E74E7C3003B965B /* TodoAppIosTests */,
-				862A104E2E74E7C3003B965B /* TodoAppIosUITests */,
+				862A10352E74E7C2003B965B /* TodoAppiOS */,
+				862A10442E74E7C3003B965B /* TodoAppiOSTests */,
+				862A104E2E74E7C3003B965B /* TodoAppiOSUITests */,
 				862A10342E74E7C2003B965B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		862A10342E74E7C2003B965B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				862A10332E74E7C2003B965B /* TodoAppIos.app */,
-				862A10412E74E7C3003B965B /* TodoAppIosTests.xctest */,
-				862A104B2E74E7C3003B965B /* TodoAppIosUITests.xctest */,
+				862A10332E74E7C2003B965B /* TodoAppiOS.app */,
+				862A10412E74E7C3003B965B /* TodoAppiOSTests.xctest */,
+				862A104B2E74E7C3003B965B /* TodoAppiOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		862A10322E74E7C2003B965B /* TodoAppIos */ = {
+		862A10322E74E7C2003B965B /* TodoAppiOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 862A10552E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppIos" */;
+			buildConfigurationList = 862A10552E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppiOS" */;
 			buildPhases = (
 				862A102F2E74E7C2003B965B /* Sources */,
 				862A10302E74E7C2003B965B /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				862A10352E74E7C2003B965B /* TodoAppIos */,
+				862A10352E74E7C2003B965B /* TodoAppiOS */,
 			);
-			name = TodoAppIos;
+			name = TodoAppiOS;
 			packageProductDependencies = (
 			);
-			productName = TodoAppIos;
-			productReference = 862A10332E74E7C2003B965B /* TodoAppIos.app */;
+			productName = TodoAppiOS;
+			productReference = 862A10332E74E7C2003B965B /* TodoAppiOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		862A10402E74E7C3003B965B /* TodoAppIosTests */ = {
+		862A10402E74E7C3003B965B /* TodoAppiOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 862A10582E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppIosTests" */;
+			buildConfigurationList = 862A10582E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppiOSTests" */;
 			buildPhases = (
 				862A103D2E74E7C3003B965B /* Sources */,
 				862A103E2E74E7C3003B965B /* Frameworks */,
@@ -131,18 +131,18 @@
 				862A10432E74E7C3003B965B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				862A10442E74E7C3003B965B /* TodoAppIosTests */,
+				862A10442E74E7C3003B965B /* TodoAppiOSTests */,
 			);
-			name = TodoAppIosTests;
+			name = TodoAppiOSTests;
 			packageProductDependencies = (
 			);
-			productName = TodoAppIosTests;
-			productReference = 862A10412E74E7C3003B965B /* TodoAppIosTests.xctest */;
+			productName = TodoAppiOSTests;
+			productReference = 862A10412E74E7C3003B965B /* TodoAppiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		862A104A2E74E7C3003B965B /* TodoAppIosUITests */ = {
+		862A104A2E74E7C3003B965B /* TodoAppiOSUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 862A105B2E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppIosUITests" */;
+			buildConfigurationList = 862A105B2E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppiOSUITests" */;
 			buildPhases = (
 				862A10472E74E7C3003B965B /* Sources */,
 				862A10482E74E7C3003B965B /* Frameworks */,
@@ -154,13 +154,13 @@
 				862A104D2E74E7C3003B965B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				862A104E2E74E7C3003B965B /* TodoAppIosUITests */,
+				862A104E2E74E7C3003B965B /* TodoAppiOSUITests */,
 			);
-			name = TodoAppIosUITests;
+			name = TodoAppiOSUITests;
 			packageProductDependencies = (
 			);
-			productName = TodoAppIosUITests;
-			productReference = 862A104B2E74E7C3003B965B /* TodoAppIosUITests.xctest */;
+			productName = TodoAppiOSUITests;
+			productReference = 862A104B2E74E7C3003B965B /* TodoAppiOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 862A102E2E74E7C2003B965B /* Build configuration list for PBXProject "TodoAppIos" */;
+			buildConfigurationList = 862A102E2E74E7C2003B965B /* Build configuration list for PBXProject "TodoAppiOS" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				862A10322E74E7C2003B965B /* TodoAppIos */,
-				862A10402E74E7C3003B965B /* TodoAppIosTests */,
-				862A104A2E74E7C3003B965B /* TodoAppIosUITests */,
+				862A10322E74E7C2003B965B /* TodoAppiOS */,
+				862A10402E74E7C3003B965B /* TodoAppiOSTests */,
+				862A104A2E74E7C3003B965B /* TodoAppiOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		862A10432E74E7C3003B965B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 862A10322E74E7C2003B965B /* TodoAppIos */;
+			target = 862A10322E74E7C2003B965B /* TodoAppiOS */;
 			targetProxy = 862A10422E74E7C3003B965B /* PBXContainerItemProxy */;
 		};
 		862A104D2E74E7C3003B965B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 862A10322E74E7C2003B965B /* TodoAppIos */;
+			target = 862A10322E74E7C2003B965B /* TodoAppiOS */;
 			targetProxy = 862A104C2E74E7C3003B965B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -388,7 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TodoAppIos/TodoAppIos.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TodoAppiOS/TodoAppiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
@@ -408,7 +408,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppIos;
+				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -425,7 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TodoAppIos/TodoAppIos.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TodoAppiOS/TodoAppiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
@@ -445,7 +445,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppIos;
+				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -467,14 +467,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppIosTests;
+				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoAppIos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TodoAppIos";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoAppiOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TodoAppiOS";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
@@ -489,14 +489,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppIosTests;
+				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoAppIos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TodoAppIos";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoAppiOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TodoAppiOS";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
@@ -510,14 +510,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppIosUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppiOSUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = TodoAppIos;
+				TEST_TARGET_NAME = TodoAppiOS;
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
@@ -531,14 +531,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppIosUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = whm.TodoAppiOSUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = TodoAppIos;
+				TEST_TARGET_NAME = TodoAppiOS;
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
@@ -546,7 +546,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		862A102E2E74E7C2003B965B /* Build configuration list for PBXProject "TodoAppIos" */ = {
+		862A102E2E74E7C2003B965B /* Build configuration list for PBXProject "TodoAppiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				862A10532E74E7C3003B965B /* Debug */,
@@ -555,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		862A10552E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppIos" */ = {
+		862A10552E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				862A10562E74E7C3003B965B /* Debug */,
@@ -564,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		862A10582E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppIosTests" */ = {
+		862A10582E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppiOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				862A10592E74E7C3003B965B /* Debug */,
@@ -573,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		862A105B2E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppIosUITests" */ = {
+		862A105B2E74E7C3003B965B /* Build configuration list for PBXNativeTarget "TodoAppiOSUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				862A105C2E74E7C3003B965B /* Debug */,
