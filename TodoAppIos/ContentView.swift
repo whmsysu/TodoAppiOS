@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var todoManager = TodoManager()
+    @StateObject private var todoManager: TodoManager
+    
+    init() {
+        // Use dependency injection container
+        self._todoManager = StateObject(wrappedValue: DIContainer.shared.createTodoManager())
+    }
     
     var body: some View {
         TodoListView(todoManager: todoManager)
@@ -18,4 +23,10 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+#Preview("Test Environment") {
+    let testTodoManager = TestDIContainer.shared.createTodoManager()
+    return TodoListView(todoManager: testTodoManager)
+        .preferredColorScheme(.light)
 }

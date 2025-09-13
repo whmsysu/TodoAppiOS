@@ -20,8 +20,20 @@ struct TodoListView: View {
                 // Progress Header
                 ProgressHeaderView(todoManager: todoManager)
                 
+                // Loading State
+                if todoManager.isLoading {
+                    HStack {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                        Text("加载中...")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                }
+                
                 // Todo List
-                if todoManager.filteredTodos.isEmpty {
+                if todoManager.filteredTodos.isEmpty && !todoManager.isLoading {
                     EmptyStateView(currentFilter: todoManager.currentFilter)
                 } else {
                     List {
@@ -35,6 +47,7 @@ struct TodoListView: View {
                         }
                     }
                     .listStyle(InsetGroupedListStyle())
+                    .disabled(todoManager.isLoading)
                 }
                 
                 Spacer()
@@ -50,6 +63,7 @@ struct TodoListView: View {
                             .font(.title2)
                             .foregroundColor(.blue)
                     }
+                    .disabled(todoManager.isLoading)
                 }
                 
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -57,21 +71,37 @@ struct TodoListView: View {
                         Button("Clear Completed") {
                             todoManager.clearCompleted()
                         }
-                        .disabled(todoManager.completedTodos.isEmpty)
+                        .disabled(todoManager.completedTodos.isEmpty || todoManager.isLoading)
                         
                         Button("Clear All", role: .destructive) {
                             todoManager.clearAll()
                         }
-                        .disabled(todoManager.todos.isEmpty)
+                        .disabled(todoManager.todos.isEmpty || todoManager.isLoading)
                     } label: {
                         Image(systemName: "ellipsis.circle")
                             .font(.title2)
                     }
+                    .disabled(todoManager.isLoading)
                 }
             }
         }
         .sheet(isPresented: $showingAddTodo) {
-            AddTodoView(todoManager: todoManager)
+            AddTodoViewWithValidation(todoManager: todoManager)
+        }
+        .alert("错误", isPresented: $todoManager.errorHandler.showingError) {
+            Button("确定") {
+                todoManager.errorHandler.clearError()
+            }
+        } message: {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(todoManager.errorHandler.errorMessage ?? "未知错误")
+                
+                if let suggestion = todoManager.errorHandler.recoverySuggestion {
+                    Text(suggestion)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
         }
     }
 }
@@ -140,6 +170,7 @@ struct TodoRowView: View {
                     .foregroundColor(todo.isActuallyCompleted ? .green : .gray)
             }
             .buttonStyle(PlainButtonStyle())
+            .disabled(todoManager.isLoading)
             
             // Todo Content
             VStack(alignment: .leading, spacing: 4) {
@@ -211,13 +242,16 @@ struct TodoRowView: View {
                         .foregroundColor(.blue)
                 }
                 .buttonStyle(PlainButtonStyle())
+                .disabled(todoManager.isLoading)
             }
         }
         .padding(.vertical, 4)
         .contentShape(Rectangle())
         .onTapGesture {
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                todoManager.toggleCompletion(for: todo)
+            if !todoManager.isLoading {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    todoManager.toggleCompletion(for: todo)
+                }
             }
         }
         .sheet(isPresented: $showingEditTodo) {
@@ -336,5 +370,9 @@ struct EmptyStateView: View {
 }
 
 #Preview {
-    TodoListView(todoManager: TodoManager())
+    TodoListView(todoManager: DIContainer.shared.createTodoManager())
+}
+
+#Preview("Test Environment") {
+    TodoListView(todoManager: TestDIContainer.shared.createTodoManager())
 }

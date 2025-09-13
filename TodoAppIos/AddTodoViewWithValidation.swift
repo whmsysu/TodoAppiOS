@@ -271,5 +271,9 @@ struct AddTodoViewWithValidation: View {
 }
 
 #Preview {
-    AddTodoViewWithValidation(todoManager: TodoManager())
+    AddTodoViewWithValidation(todoManager: DIContainer.shared.createTodoManager())
+}
+
+#Preview("Test Environment") {
+    AddTodoViewWithValidation(todoManager: TestDIContainer.shared.createTodoManager())
 }

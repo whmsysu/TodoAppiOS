@@ -554,5 +554,5 @@ struct TimePickerSheet: View {
 }
 
 #Preview {
-    AddTodoView(todoManager: TodoManager())
+    AddTodoView(todoManager: DIContainer.shared.createTodoManager())
 }

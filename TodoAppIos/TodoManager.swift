@@ -8,62 +8,115 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 class TodoManager: ObservableObject {
     @Published var todos: [Todo] = []
     @Published var currentFilter: TodoFilter = .pending
     @Published var filteredTodos: [Todo] = []
+    @Published var isLoading = false
+    @Published var errorHandler: ErrorHandler
     
-    private let userDefaults = UserDefaults.standard
-    private let todosKey = "SavedTodos"
+    private let todoUseCase: TodoUseCase
     
-    init() {
-        loadTodos()
-        applyFilter()
+    init(todoUseCase: TodoUseCase) {
+        self.todoUseCase = todoUseCase
+        self.errorHandler = ErrorHandler()
+        Task {
+            await loadTodos()
+        }
     }
     
     // MARK: - CRUD Operations
     
     func addTodo(_ todo: Todo) {
-        todos.append(todo)
-        saveTodos()
-        applyFilter()
+        Task {
+            await MainActor.run { isLoading = true }
+            
+            do {
+                try await todoUseCase.addTodo(todo)
+                await MainActor.run {
+                    todos.append(todo)
+                    applyFilter()
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorHandler.handle(error)
+                    isLoading = false
+                }
+            }
+        }
     }
     
     func deleteTodo(at indexSet: IndexSet) {
-        todos.remove(atOffsets: indexSet)
-        saveTodos()
-        applyFilter()
+        for index in indexSet {
+            let todo = filteredTodos[index]
+            deleteTodo(todo)
+        }
     }
     
     func deleteTodo(_ todo: Todo) {
-        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
-            todos.remove(at: index)
-            saveTodos()
-            applyFilter()
+        Task {
+            await MainActor.run { isLoading = true }
+            
+            do {
+                try await todoUseCase.deleteTodo(todo)
+                await MainActor.run {
+                    todos.removeAll { $0.id == todo.id }
+                    applyFilter()
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorHandler.handle(error)
+                    isLoading = false
+                }
+            }
         }
     }
     
     func toggleCompletion(for todo: Todo) {
-        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
-            if todos[index].isActuallyCompleted {
-                // Mark as incomplete
-                todos[index].isCompleted = false
-                todos[index].completedAt = nil
-            } else {
-                // Mark as completed
-                todos[index].isCompleted = true
-                todos[index].completedAt = Date()
+        Task {
+            await MainActor.run { isLoading = true }
+            
+            do {
+                try await todoUseCase.toggleCompletion(for: todo)
+                await MainActor.run {
+                    // Update local state
+                    if let index = todos.firstIndex(where: { $0.id == todo.id }) {
+                        todos[index] = todo
+                    }
+                    applyFilter()
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorHandler.handle(error)
+                    isLoading = false
+                }
             }
-            saveTodos()
-            applyFilter()
         }
     }
     
     func updateTodo(_ todo: Todo) {
-        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
-            todos[index] = todo
-            saveTodos()
-            applyFilter()
+        Task {
+            await MainActor.run { isLoading = true }
+            
+            do {
+                try await todoUseCase.updateTodo(todo)
+                await MainActor.run {
+                    if let index = todos.firstIndex(where: { $0.id == todo.id }) {
+                        todos[index] = todo
+                    }
+                    applyFilter()
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorHandler.handle(error)
+                    isLoading = false
+                }
+            }
         }
     }
     
@@ -133,30 +186,59 @@ class TodoManager: ObservableObject {
     
     // MARK: - Persistence
     
-    private func saveTodos() {
-        if let encoded = try? JSONEncoder().encode(todos) {
-            userDefaults.set(encoded, forKey: todosKey)
-        }
-    }
-    
-    private func loadTodos() {
-        if let data = userDefaults.data(forKey: todosKey),
-           let decoded = try? JSONDecoder().decode([Todo].self, from: data) {
-            todos = decoded
+    @MainActor
+    private func loadTodos() async {
+        isLoading = true
+        
+        do {
+            todos = try await todoUseCase.fetchTodos()
+            applyFilter()
+            isLoading = false
+        } catch {
+            errorHandler.handle(error)
+            isLoading = false
         }
     }
     
     // MARK: - Utility Methods
     
     func clearCompleted() {
-        todos.removeAll { $0.isActuallyCompleted }
-        saveTodos()
-        applyFilter()
+        Task {
+            await MainActor.run { isLoading = true }
+            
+            do {
+                try await todoUseCase.clearCompletedTodos()
+                await MainActor.run {
+                    todos.removeAll { $0.isActuallyCompleted }
+                    applyFilter()
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorHandler.handle(error)
+                    isLoading = false
+                }
+            }
+        }
     }
     
     func clearAll() {
-        todos.removeAll()
-        saveTodos()
-        applyFilter()
+        Task {
+            await MainActor.run { isLoading = true }
+            
+            do {
+                try await todoUseCase.clearAllTodos()
+                await MainActor.run {
+                    todos.removeAll()
+                    applyFilter()
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorHandler.handle(error)
+                    isLoading = false
+                }
+            }
+        }
     }
 }
