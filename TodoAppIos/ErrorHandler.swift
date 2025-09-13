@@ -57,6 +57,9 @@ class ErrorHandler: ObservableObject {
         if let todoError = error as? TodoError {
             errorMessage = todoError.errorDescription
             recoverySuggestion = todoError.recoverySuggestion
+        } else if let validationError = error as? ValidationError {
+            errorMessage = validationError.errorDescription
+            recoverySuggestion = validationError.recoverySuggestion
         } else {
             errorMessage = error.localizedDescription
             recoverySuggestion = "请稍后重试"
